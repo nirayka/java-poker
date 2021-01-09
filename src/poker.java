@@ -1,2 +1,2 @@
-public class poker {
+public class Poker {
 }
