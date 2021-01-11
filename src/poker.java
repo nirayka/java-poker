@@ -98,7 +98,7 @@ public class Poker {
         while (tradedCards < 3) {
             int tradesLeft = 3 - tradedCards;
             player.showHand();
-            System.out.println("You have " + tradesLeft + " trades remaining. \nPick a card to trade in by entering the number next to it. If you don't want to trade anything in, enter \"F\" to finish your turn.");
+            System.out.println("You have " + tradesLeft + " trade(s) remaining. \nPick a card to trade in by entering the number next to it. If you don't want to trade anything in, enter \"F\" to finish your turn.");
             String cardIndex = in.nextLine().toUpperCase();
             if (cardIndex.equals("F")) {
                 return player.checkHand();
