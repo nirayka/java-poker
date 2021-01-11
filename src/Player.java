@@ -17,8 +17,8 @@ public class Player {
         hand.add(card);
     }
     public void showHand(){
-        String message = "\nYour Hand: ";
-        System.out.println(message);
+        String message = "\nYour hand: ";
+        System.out.print(message);
         String a = "";
         for(int i = 0; i < getHand().size(); i ++){
             int index = i + 1;
