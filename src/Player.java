@@ -2,7 +2,7 @@ import java.util.*;
 public class Player {
     private ArrayList<Card> hand;
     private long chips;
-    public Player(long chips){
+    public Player (long chips) {
         this.hand = new ArrayList<>();
         this.chips = chips;
     }

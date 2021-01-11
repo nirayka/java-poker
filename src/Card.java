@@ -16,11 +16,11 @@ public class Card implements Comparable {
             return Integer.parseInt(rank);
         } catch (NumberFormatException e) {
             switch (rank) {
-                case "T": return 10;    // for 10s, Jacks, Queens, Kings,
-                case "J": return 11;    // and Aces, we need to apply a
-                case "Q": return 12;    // numeric value to simplify the
-                case "K": return 13;    // sorting of hands and books.
-                case "A": if(high){return 14;}else{return 1;}
+                case "T": return 10;    // for 10s and face cards,
+                case "J": return 11;    // a number is associated
+                case "Q": return 12;    // with each rank to make it easier
+                case "K": return 13;    // to sort the cards.
+                case "A": if (high){return 14;}else{return 1;}
             }
         }
         return -1;
@@ -39,7 +39,6 @@ public class Card implements Comparable {
     public int compareTo(Object o) {
         Card card = (Card) o;
         int compareCard=card.getOrderedRank(card.getRank(), true);
-        /* For Ascending order*/
         return this.getOrderedRank(this.getRank(), true)-compareCard;
     }
 }

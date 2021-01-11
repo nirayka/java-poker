@@ -18,8 +18,8 @@ public class Poker {
         long wager;
         boolean startGame = true;
         while (true) {
-            if(startGame){
-                if(player.getChips() == 0){
+            if (startGame) {
+                if (player.getChips() == 0) {
                     long a = startGame();
                     player.setChips(a);
                 }
@@ -28,38 +28,42 @@ public class Poker {
                 computer.emptyHand();
                 player.emptyHand();
                 shuffleAndDeal();
-                startGame=false;
+                startGame = false;
             }
 
-            System.out.print("You currently have " + player.getChips() + " chips. How many chips would you like to wager? ");
+            System.out.print("You have " + player.getChips() + " chips. How many chips would you like to wager? ");
             String input = in.nextLine();
             checkQuit(input);
             wager = checkValidInput(input);
-            if (wager > player.getChips() || wager < 0) {
-                System.out.println("Invalid number of chips");
+            if (wager > 25){
+                System.out.println("You can't wager more than 25 chips.");
+            } else if (wager > player.getChips()) {
+                System.out.println("You can't wager more chips than you currently have.");
+            } else if (wager < 0) {
+                System.out.println("You need to wager at least one chip.");
             } else {
                 String msg = "";
                 int multiplier = takeTurn();
                 if (multiplier == 0) {
-                    msg = "You lost. Better luck next time!";
+                    msg = "\nSorry, you lost. Better luck next time!";
                 }else if (multiplier == 1){
-                    msg = "Pair!";
+                    msg = "\nNice job, you've won with a Pair!";
                 }else if (multiplier == 2){
-                    msg = "Two Pair!";
+                    msg = "\nNice job, you've won with a Two Pair!";
                 }else if (multiplier == 3){
-                    msg = "Three-of-a-kind!";
+                    msg = "\nNice job, you've won with a Three-of-a-kind!";
                 }else if (multiplier == 5){
-                    msg = "Straight!";
+                    msg = "\nNice job, you've won with a Straight!";
                 }else if (multiplier == 10){
-                    msg = "Flush";
+                    msg = "\nNice job, you've won with a Flush";
                 }else if (multiplier == 15){
-                    msg = "Full House!";
+                    msg = "\nNice job, you've won with a Full House!";
                 }else if(multiplier == 25){
-                    msg = "Four-of-a-kind!";
+                    msg = "\nNice job, you've won with a Four-of-a-kind!";
                 }else if (multiplier == 50){
-                    msg = "Straight Flush!";
+                    msg = "\nNice job, you've won with a Straight Flush!";
                 }else if(multiplier == 100) {
-                    msg = "Royal Flush!";
+                    msg = "\nNice job, you've won with a Royal Flush!";
                 }
                 System.out.println(msg);
                 if(multiplier > 0 ){
@@ -72,7 +76,7 @@ public class Poker {
         }
     }
 
-    public void shuffleAndDeal(){
+    public void shuffleAndDeal() {
         if(deck == null){
             initializeDeck();
         }
@@ -85,20 +89,20 @@ public class Poker {
     private void initializeDeck(){
         deck = new ArrayList<>(52);
         for (String suit : SUITS) {
-            for(String rank : RANKS){
+            for (String rank : RANKS) {
                 deck.add(new Card(rank, suit));
             }
         }
     }
     private int takeTurn(){
-        while(tradedCards < 3){
+        while (tradedCards < 3) {
             int tradesLeft = 3 - tradedCards;
             player.showHand();
-            System.out.println("You have " + tradesLeft + " trades remaining. \nPick a card to trade in by entering the number next to it. If you don't want to trade anything in, \"P\" to pass.");
+            System.out.println("You have " + tradesLeft + " trades remaining. \nPick a card to trade in by entering the number next to it. If you don't want to trade anything in, enter \"F\" to finish your turn.");
             String cardIndex = in.nextLine().toUpperCase();
-            if(cardIndex.equals("PASS") || cardIndex.equals("P")){
+            if (cardIndex.equals("F")) {
                 return player.checkHand();
-            }else {
+            } else {
                 try {
                     int card = Integer.parseInt(cardIndex);
                     if (card > 5){
@@ -125,21 +129,21 @@ public class Poker {
     }
     private static long startGame(){
         long a;
-        while (true) {
+        while(true){
             Scanner init = new Scanner(System.in);
             System.out.print("How many chips would you like to buy? ");
             String input = init.nextLine();
             checkQuit(input);
             a = checkValidInput(input);
 
-            if (a > 0) {
+            if(a > 0){
                 return a;
             }
         }
 
     }
     private static void checkQuit (String s){
-        if (s.toUpperCase().equals("QUIT") || s.toUpperCase().equals("Q")) {
+        if (s.toUpperCase().equals("QUIT")) {
             System.exit(0);
         }
     }
